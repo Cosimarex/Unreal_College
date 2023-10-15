@@ -121,30 +121,7 @@ void AHeroCharacter::LookUpRate(float Rate) {
 
 }
 
-void AHeroCharacter::PlayAnimMontage(UAnimMontage* MontageToPlay, FName SectionName)
-{
-	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance && MontageToPlay)
-	{
-		// Check to see if the montage is already playing
-		if (!AnimInstance->Montage_IsPlaying(MontageToPlay))
-		{
-			// Disable character movement
-			GetCharacterMovement()->DisableMovement();
 
-			// Get time it takes to play montage
-			int32 const SectionIndex = MontageToPlay->GetSectionIndex(SectionName);
-			int32 const SectionLength = MontageToPlay->GetSectionLength(SectionIndex);
-
-			// Play montage and start timer
-			AnimInstance->Montage_Play(MontageToPlay);
-			AnimInstance->Montage_JumpToSection(SectionName);
-
-			// Setup timer to enable walking after montage stop playing
-			GetWorldTimerManager().SetTimer(TimerMovementWalking, this, &AHeroCharacter::EnableWalk, SectionLength);
-		}
-	}
-}
 
 void AHeroCharacter::EnableWalk()
 {
@@ -155,6 +132,28 @@ void AHeroCharacter::MainAttack()
 {
 	PlayAnimMontage(MainAttackMontage, FName("MainAttack"));
 }
+
+void AHeroCharacter::PlayAnimMontage(UAnimMontage* MontagetoPlay,FName SectionName)
+{
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+
+	if(AnimInstance && MontagetoPlay)
+	{
+		if(!AnimInstance->Montage_IsPlaying(MontagetoPlay))
+		{
+			GetCharacterMovement()->DisableMovement();
+
+			int32 const SectionIndex = MontagetoPlay->GetSectionIndex(SectionName);
+			int32 const SectionLength = MontagetoPlay->GetSectionLength(SectionIndex);
+
+			AnimInstance->Montage_Play(MontagetoPlay);
+			AnimInstance->Montage_JumpToSection(SectionName);
+
+			GetWorldTimerManager().SetTimer(TimerMovementWalking, this, &AHeroCharacter::EnableWalk, SectionLength);
+		}
+	}
+}
+
 
 void AHeroCharacter::OnRightWeaponOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {

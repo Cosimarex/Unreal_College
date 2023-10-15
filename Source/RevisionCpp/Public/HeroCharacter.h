@@ -24,6 +24,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	void PlayAnimMontage(UAnimMontage* MontagetoPlay, FName SeciontName = "Default");
+
 	void MoveForward(float Value);
 
 	void MoveRight(float Value);
@@ -32,7 +34,6 @@ protected:
 
 	void LookUpRate(float Rate);
 
-	void PlayAnimMontage(UAnimMontage* MontageToPlay, FName SectionName = "Default");
 
 	void EnableWalk();
 

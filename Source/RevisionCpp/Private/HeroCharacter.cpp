@@ -15,7 +15,7 @@ AHeroCharacter::AHeroCharacter():
 
 
 {
-
+	Health = MaxHealth = 100.0f;
 
 	
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -67,8 +67,22 @@ void AHeroCharacter::Tick(float DeltaTime)
 
 }
 
+float AHeroCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	if (Health - DamageAmount <= 0.f) {
 
+		FString DebugMessage = FString::Printf(TEXT("Player Health %f"), Health);
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, DebugMessage);
 
+	}
+
+	else {
+		Health -= DamageAmount;
+	}
+
+	return DamageAmount;
+
+}
 
 void AHeroCharacter::MoveForward(float Value) {
 
@@ -171,7 +185,7 @@ void AHeroCharacter::OnRightWeaponOverlap(UPrimitiveComponent* OverlappedCompone
 	}
 
 
-	float BaseDamage = 20.f;
+      BaseDamage = 20.f;
 	// Apply damage to enemy
 	UGameplayStatics::ApplyDamage(
 		SweepResult.GetActor(),

@@ -119,9 +119,9 @@ void AEnemyAttack::OnRightWeaponOverlap(UPrimitiveComponent* OverlappedComponent
 	}
 
 
-	//float BaseDamage = 20.f;
+	BaseDamage = 20.f;
 	// Apply damage to enemy
-	//UGameplayStatics::ApplyDamage(SweepResult.GetActor(),BaseDamage,GetController(),this,UDamageType::StaticClass());
+	UGameplayStatics::ApplyDamage(SweepResult.GetActor(),BaseDamage,GetController(),this,UDamageType::StaticClass());
 
 }
 void AEnemyAttack::OnLeftWeaponOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -140,9 +140,9 @@ void AEnemyAttack::OnLeftWeaponOverlap(UPrimitiveComponent* OverlappedComponent,
 	}
 
 
-	//float BaseDamage = 20.f;
+	BaseDamage = 20.f;
 	// Apply damage to enemy
-	//UGameplayStatics::ApplyDamage(SweepResult.GetActor(),BaseDamage,GetController(),this,UDamageType::StaticClass());
+	UGameplayStatics::ApplyDamage(SweepResult.GetActor(),BaseDamage,GetController(),this,UDamageType::StaticClass());
 
 }
 

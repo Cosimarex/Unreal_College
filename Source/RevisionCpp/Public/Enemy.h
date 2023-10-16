@@ -20,9 +20,14 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	void DestroySelf();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+		UAnimMontage* DeathMontage;
 
 	// Enemy name to display on HUD
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
@@ -49,5 +54,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void EnemyMainAttack();
+
+	FTimerHandle DeathTimer;
+
+
 
 };

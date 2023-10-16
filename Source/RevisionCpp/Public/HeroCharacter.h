@@ -20,6 +20,18 @@ public:
 	// Activate and deactivate weapon boxes
 	virtual void ActivateRightWeapon();
 	virtual void DeactivateRightWeapon();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+		float BaseDamage=20.0f;
+
+	// Current health of enemy
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+		float Health;
+
+	// Maximum allowed health of enemy
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+		float MaxHealth;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -38,6 +50,9 @@ protected:
 	void EnableWalk();
 
 	void MainAttack();
+
+	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
 
 	// Right weapon overlap
 	UFUNCTION()

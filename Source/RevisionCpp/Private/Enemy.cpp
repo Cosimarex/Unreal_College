@@ -41,8 +41,24 @@ float AEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AC
 {
 	if (Health - DamageAmount <= 0.f) {
 
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Enemy Died"));
+		FString DebugMessage = FString::Printf(TEXT("Enemy Health %f"), Health);
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, DebugMessage);
+		UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 
+		if (AnimInstance && DeathMontage)
+		{
+			// get no of montage section
+			int32 const SectionCount = DeathMontage->CompositeSections.Num();
+
+			FName const SectionName = "";
+			int32 const SectionIndex = DeathMontage->GetSectionIndex(SectionName);
+			float const SectionLength = DeathMontage->GetSectionLength(SectionIndex);
+
+
+			AnimInstance->Montage_Play(DeathMontage);
+			AnimInstance->Montage_JumpToSection(SectionName, DeathMontage);
+			GetWorldTimerManager().SetTimer(DeathTimer, this,&AEnemy::DestroySelf, SectionLength);
+		}
 	}
 
 	else {
@@ -58,3 +74,7 @@ void AEnemy::EnemyMainAttack()
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Called from Enemy Class"));
 }
 
+void AEnemy::DestroySelf()
+{
+	Destroy();
+}

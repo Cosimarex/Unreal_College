@@ -25,6 +25,7 @@ public:
 
 	AEnemyAttack();
 	//Right Weapon
+
 	virtual void ActivateRightWeapon();
 	virtual void DeactivateRightWeapon();
 

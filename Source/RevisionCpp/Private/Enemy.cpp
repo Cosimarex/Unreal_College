@@ -2,6 +2,7 @@
 
 
 #include "Enemy.h"
+#include "BehaviorTree/BehaviorTree.h"
 
 // Sets default values
 AEnemy::AEnemy():
@@ -13,6 +14,11 @@ AEnemy::AEnemy():
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+}
+
+UBehaviorTree* AEnemy::GetBehaviourTree()const
+{
+	return Tree;
 }
 
 // Called when the game starts or when spawned

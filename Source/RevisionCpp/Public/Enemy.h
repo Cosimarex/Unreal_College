@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "CombatInterface.h"
 #include "GameFramework/Character.h"
+#include "BehaviorTree/BehaviorTree.h"
+
 #include "Enemy.generated.h"
 
 UCLASS()
@@ -29,6 +31,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 		UAnimMontage* DeathMontage;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
+		UBehaviorTree* Tree;
+
 	// Enemy name to display on HUD
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	FName EnemyName;
@@ -45,6 +50,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	float MaxHealth;
 
+	UBehaviorTree* GetBehaviourTree() const;
+
 public:
 
 	// Override melee hit interface
@@ -57,6 +64,7 @@ public:
 
 	FTimerHandle DeathTimer;
 
+	
 
 
 };

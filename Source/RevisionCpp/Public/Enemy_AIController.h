@@ -18,7 +18,7 @@ class REVISIONCPP_API AEnemy_AIController : public AAIController
 	GENERATED_BODY()
 public:
 
-    AEnemy_AIController();
+	virtual void OnPossess(APawn* InPawn)override;
     
 };
 
